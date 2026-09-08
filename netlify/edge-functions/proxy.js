@@ -50,9 +50,12 @@ function applyClientFingerprint(headers) {
   headers.set('Origin', 'https://opencode.ai');
   headers.set('Referer', 'https://opencode.ai/');
   
-  const sessionID = generateUUID();
+  const uuid = generateUUID().replace(/-/g, '');
+  const sessionID = 'ses_' + uuid.slice(0, 24);
   const reqID = generateUUID();
+  headers.set('x-opencode-session', sessionID);
   headers.set('x-opencode-session-id', sessionID);
+  headers.set('x-session-id', sessionID);
   headers.set('x-request-id', reqID);
   headers.set('x-correlation-id', reqID);
 }
